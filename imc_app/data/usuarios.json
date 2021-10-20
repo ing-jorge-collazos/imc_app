@@ -1,0 +1,13 @@
+{
+"nombreApp" : "IMC_masa_corporal",
+"rutas" :[
+       {
+        "usuario":"admin",
+        "password":"123abc",
+        
+
+       }
+
+    
+    ]
+}
