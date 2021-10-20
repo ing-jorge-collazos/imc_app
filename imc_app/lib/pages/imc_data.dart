@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class ImcData extends StatefulWidget {
@@ -9,8 +11,9 @@ class _ImcDataState extends State<ImcData> {
   final _peso = TextEditingController();
   final _estatura = TextEditingController();
 
-  String _pesoUsuario = '';
-  String _estaturaUsuario = '';
+  double _pesoUsuario;
+  double _estaturaUsuario;
+  double _imcUsuario;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +30,6 @@ class _ImcDataState extends State<ImcData> {
             decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-              // counter: Text('Letras ${_nombre.length}'),
-
               labelText: 'Peso actual',
               helperText: '(KG)',
               suffixIcon: Icon(Icons.accessibility),
@@ -41,8 +42,6 @@ class _ImcDataState extends State<ImcData> {
             decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-              // counter: Text('Letras ${_nombre.length}'),
-
               labelText: 'Estatura',
               helperText: '(Mts)',
               suffixIcon: Icon(Icons.accessibility),
@@ -53,19 +52,16 @@ class _ImcDataState extends State<ImcData> {
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.account_circle),
           onPressed: () {
-            _pesoUsuario = _peso.text;
-            _estaturaUsuario = _estatura.text;
-
-            print(_estaturaUsuario);
-            print(_pesoUsuario);
+            _pesoUsuario = double.parse(_peso.text);
+            _estaturaUsuario = double.parse(_estatura.text);
+            _imcUsuario = _pesoUsuario / (_estaturaUsuario * _estaturaUsuario);
 
             return showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  // Recupera el texto que el usuario ha digitado utilizando nuestro
-                  // TextEditingController
-                  content: Text(_peso.text),
+                  // Recupero el texto del TextEditingController
+                  content: Text('indice de masa corporal: $_imcUsuario'),
                 );
               },
             );
