@@ -36,9 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final _pass = TextEditingController();
 
   bool _validate = false;
-
-  String usuario = 'admin';
-  String pass = '123abc';
+  String usuario = '';
+  String pass = '';
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +70,24 @@ class _HomeScreenState extends State<HomeScreen> {
           RaisedButton(
               child: Text('Ingresar'),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ImcData()));
+                usuario = _user.text;
+                pass = _pass.text;
+
+                if (usuario == 'admin' && pass == '123abc') {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ImcData()));
+                } else {
+                  return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        // Recupera el texto que el usuario ha digitado utilizando nuestro
+                        // TextEditingController
+                        content: Text('Usuario y/o Contraseña incorrectos'),
+                      );
+                    },
+                  );
+                } //cierre else
 
                 setState(() {
                   _user.text.isEmpty ? _validate = true : _validate = false;
