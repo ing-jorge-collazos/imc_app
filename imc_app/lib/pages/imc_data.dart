@@ -56,6 +56,26 @@ class _ImcDataState extends State<ImcData> {
             _estaturaUsuario = double.parse(_estatura.text);
             _imcUsuario = _pesoUsuario / (_estaturaUsuario * _estaturaUsuario);
 
+            if (_imcUsuario < 18.5) {
+              print('Bajo de peso');
+            }
+
+            if (_imcUsuario == 18.5 || _imcUsuario == 24.9) {
+              print('Peso normal');
+            }
+
+            if (_imcUsuario == 25 || _imcUsuario == 29.9) {
+              print('Esta en sobrepeso');
+            }
+
+            if (_imcUsuario >= 30) {
+              print('Su condicion es Obesidad');
+            }
+
+            Column(
+              children: [],
+            );
+
             return showDialog(
               context: context,
               builder: (context) {
