@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("IMC: Indice de Masa Corporal")),
-        body: ListView(children: [
+        body: ListView(padding: EdgeInsets.all(10), children: [
           TextField(
             controller: _user,
             decoration: InputDecoration(
