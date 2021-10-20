@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class ImcData extends StatefulWidget {
@@ -30,6 +28,7 @@ class _ImcDataState extends State<ImcData> {
             decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+              hintText: 'ejemplo: 70.5',
               labelText: 'Peso actual',
               helperText: '(KG)',
               suffixIcon: Icon(Icons.accessibility),
@@ -42,6 +41,7 @@ class _ImcDataState extends State<ImcData> {
             decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+              hintText: 'ejemplo: 1.80',
               labelText: 'Estatura',
               helperText: '(Mts)',
               suffixIcon: Icon(Icons.accessibility),
@@ -50,41 +50,67 @@ class _ImcDataState extends State<ImcData> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.account_circle),
+          child: Icon(Icons.accessibility_new),
           onPressed: () {
             _pesoUsuario = double.parse(_peso.text);
             _estaturaUsuario = double.parse(_estatura.text);
             _imcUsuario = _pesoUsuario / (_estaturaUsuario * _estaturaUsuario);
 
             if (_imcUsuario < 18.5) {
-              print('Bajo de peso');
-            }
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // Recupero el texto del TextEditingController
+                    content: Text('indice de masa corporal: ' +
+                        _imcUsuario.toStringAsFixed(2) +
+                        'Bajo de Peso'),
+                  );
+                },
+              );
+            } //cierre condicion
 
-            if (_imcUsuario == 18.5 || _imcUsuario == 24.9) {
-              print('Peso normal');
-            }
+            if (_imcUsuario >= 18.5 && _imcUsuario < 24.9) {
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // Recupero el texto del TextEditingController
+                    content: Text('indice de masa corporal: ' +
+                        _imcUsuario.toStringAsFixed(2) +
+                        'Peso Normal'),
+                  );
+                },
+              );
+            } //cierre condicion
 
-            if (_imcUsuario == 25 || _imcUsuario == 29.9) {
-              print('Esta en sobrepeso');
-            }
+            if (_imcUsuario >= 25 && _imcUsuario < 29.9) {
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // Recupero el texto del TextEditingController
+                    content: Text('indice de masa corporal: ' +
+                        _imcUsuario.toStringAsFixed(2) +
+                        'Esta en Sobrepeso'),
+                  );
+                },
+              );
+            } //cierre condicion
 
             if (_imcUsuario >= 30) {
-              print('Su condicion es Obesidad');
-            }
-
-            Column(
-              children: [],
-            );
-
-            return showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  // Recupero el texto del TextEditingController
-                  content: Text('indice de masa corporal: $_imcUsuario'),
-                );
-              },
-            );
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // Recupero el texto del TextEditingController
+                    content: Text('indice de masa corporal: ' +
+                        _imcUsuario.toStringAsFixed(2) +
+                        'Su condicion es Obesidad'),
+                  );
+                },
+              );
+            } //cierre condicion
           }),
     );
   }

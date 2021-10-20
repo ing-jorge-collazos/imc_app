@@ -81,8 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        // Recupera el texto que el usuario ha digitado utilizando nuestro
-                        // TextEditingController
                         content: Text('Usuario y/o Contraseña incorrectos'),
                       );
                     },
